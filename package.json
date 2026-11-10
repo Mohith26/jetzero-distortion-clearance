@@ -1,0 +1,1 @@
+{ "name": "jetzero-distortion-clearance", "private": true, "type": "module", "scripts": { "test": "node --test test/*.test.js", "data": "node scripts/gen_data.js", "backtest": "node scripts/backtest.js" } }

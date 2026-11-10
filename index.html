@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inlet Distortion Clearance | Jet1 Test Data</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="logo" href="#"><img src="assets/jetzero-logo-reverse.png" alt="JetZero" width="117" height="26"></a>
+  <nav class="mainnav">
+    <a href="#">JET1</a>
+    <a href="#">TEST CARDS</a>
+    <a href="#">INSTRUMENTATION</a>
+    <a href="#" class="active">DISTORTION</a>
+    <a href="#">REPORTS</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Inlet Distortion Clearance</h1>
+    <p id="heroSub">Jet1 Demonstrator · No. 1 engine fan face · Crosswind ground runs</p>
+  </div>
+</section>
+
+<main class="page">
+  <aside class="rail">
+    <a href="#map" class="on">CLEARANCE MAP</a>
+    <a href="#runs">Run log</a>
+    <a href="#health">Probe health</a>
+    <a href="#sortie">Next sortie</a>
+    <a href="#backtest">Backtest</a>
+    <div class="rail-meta" id="railMeta"></div>
+  </aside>
+
+  <div class="content">
+    <div class="kpis" id="kpis"></div>
+
+    <div class="row" id="map">
+      <div class="panel rose-panel">
+        <div class="panel-head">
+          <h2>Crosswind clearance</h2>
+          <div class="ctrl">
+            <label>%N1 <output id="n1Out">90</output></label>
+            <input type="range" id="n1" min="60" max="100" step="5" value="90">
+          </div>
+        </div>
+        <svg id="rose" viewBox="0 0 460 440" role="img" aria-label="Clearance map by wind speed and azimuth"></svg>
+        <div class="legend">
+          <span><i class="sw clr"></i>Cleared</span>
+          <span><i class="sw unr"></i>Unresolved</span>
+          <span><i class="sw exc"></i>Exceeds limit</span>
+          <span><i class="dot"></i>Test run at this power</span>
+          <span><i class="ring"></i>Planned run</span>
+        </div>
+      </div>
+      <div class="panel face-panel">
+        <div class="panel-head">
+          <h2 id="faceTitle">Fan face</h2>
+          <div class="ctrl"><label class="switch"><input type="checkbox" id="screenToggle" checked><span>Probe screening</span></label></div>
+        </div>
+        <div class="face-wrap">
+          <canvas id="face" width="560" height="560"></canvas>
+          <div class="face-scale"><span>P/P0</span><div class="bar"></div><div class="ticks" id="scaleTicks"></div></div>
+        </div>
+        <table class="rings" id="ringTable"></table>
+      </div>
+    </div>
+
+    <section class="block" id="runs">
+      <h3>Run log</h3>
+      <p class="lede">ARP1420 descriptors per 30 s steady-state point. Stability-pressure-ratio loss uses assumed ring sensitivities; error bars propagate averaging noise, calibration and probe reconstruction.</p>
+      <div class="table-scroll"><table class="grid" id="runTable"></table></div>
+    </section>
+
+    <section class="block" id="health">
+      <h3>Probe health</h3>
+      <div class="health-row">
+        <svg id="probeGrid" viewBox="0 0 420 250"></svg>
+        <div id="flagList" class="flags"></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<section class="dark" id="sortie">
+  <div class="dark-inner">
+    <div class="dcol">
+      <h3><span class="icon-circle">→</span>Next sortie</h3>
+      <p class="dlede">Wind speed can't be scheduled, so the plan takes the forecast and picks headings and power settings that settle the most envelope area against the limit.</p>
+      <div class="form">
+        <label>Forecast wind (kt)<input type="number" id="fcWind" min="5" max="35" step="0.5"></label>
+        <label>From (deg true)<input type="number" id="fcFrom" min="0" max="359" step="5"></label>
+        <label>Runs<input type="number" id="fcRuns" min="2" max="10" step="1"></label>
+        <button id="planBtn">PLAN</button>
+      </div>
+      <div id="planOut"></div>
+    </div>
+    <div class="dcol" id="backtest">
+      <h3><span class="icon-circle">≈</span>Backtest</h3>
+      <p class="dlede" id="btLede"></p>
+      <div class="seg" id="btSeg"><button data-r="4">4 RUNS / DAY</button><button data-r="8" class="on">8 RUNS / DAY</button></div>
+      <svg id="btChart" viewBox="0 0 560 230"></svg>
+      <div id="btTable"></div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <img src="assets/jetzero-logo-reverse.png" alt="" width="90" height="20">
+  <span>Unofficial concept demo by Mohith Gajjela. Not affiliated with JetZero. Synthetic data.</span>
+  <a href="https://github.com/Mohith26/jetzero-distortion-clearance">Source</a>
+</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>
